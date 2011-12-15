@@ -1,6 +1,11 @@
 class SimpleReactor::TimerMap < Hash
 
   attr :sorted_keys
+  
+  def initialize
+    super
+    @sorted_keys = []
+  end
 
   def []=(k, v)
     super
@@ -15,7 +20,7 @@ class SimpleReactor::TimerMap < Hash
   end
 
   def next_time
-    @sorted_keys.first
+    @sorted_keys.first if @sorted_keys
   end
 
   def shift
@@ -34,7 +39,7 @@ class SimpleReactor::TimerMap < Hash
       time
     else
       Time.now + time.to_i
-    end
+    end.to_i
 
     self[time] = [block, args] if block_given?
   end
