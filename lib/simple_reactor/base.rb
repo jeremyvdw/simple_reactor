@@ -23,7 +23,7 @@ class SimpleReactor::Base
 
     yield self if block_given?
 
-    tick while running
+    tick while @running
   end
 
   def tick
